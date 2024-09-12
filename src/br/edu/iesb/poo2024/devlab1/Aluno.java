@@ -13,7 +13,7 @@ public class Aluno extends Pessoa{
         super();
     }
 
-    public Aluno(int idAluno, String nome, String cpf, java.sql.Date dataNascimento, int idPessoa, int numeroMatricula,
+    public Aluno(int idAluno, String nome, String cpf, Date dataNascimento, int idPessoa, int numeroMatricula,
             String nomeCurso, int numeroSemestre, Date dataMatricula) {
         super(idPessoa, nome, cpf, dataNascimento);
         this.id = idAluno;
