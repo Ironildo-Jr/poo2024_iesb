@@ -28,7 +28,7 @@ public class CinemaMain {
         Ingresso ingressoIron = func1.venderIngresso("12312312354", 1, "inteira", 40.9);
         ingressoIron.imprimirIngresso();
 
-        Ingresso ingressoBruno = func1.venderIngresso("32132132145", 2, "meia", 15.5);
+        Ingresso ingressoBruno = func1.venderIngresso("32132132145", 3, "meia", 15.5);
         ingressoBruno.imprimirIngresso();
 
         // Teste erro sessao invalida

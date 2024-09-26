@@ -1,5 +1,6 @@
 package br.edu.iesb.poo2024.atividadeAvaliativa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Filme extends ObjetoBase{
@@ -7,7 +8,7 @@ public class Filme extends ObjetoBase{
     private String duracao;
     private int classificacaoEtaria;
     private String genero;
-    private static List<Filme> filmes;
+    private static List<Filme> filmes = new ArrayList<>();
 
     public Filme(String nome, String duracao, int classificacaoEtaria, String genero){
         this.nome = nome;

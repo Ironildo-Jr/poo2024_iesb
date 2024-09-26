@@ -1,13 +1,14 @@
 package br.edu.iesb.poo2024.atividadeAvaliativa;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente extends ObjetoBase{
     private String nome;
     private String cpf;
     private LocalDateTime dataNascimento;
-    private static List<Cliente> clientes;
+    private static List<Cliente> clientes = new ArrayList<>();
 
     public Cliente(String nome, String cpf, LocalDateTime dataNascimento){
         this.nome = nome;

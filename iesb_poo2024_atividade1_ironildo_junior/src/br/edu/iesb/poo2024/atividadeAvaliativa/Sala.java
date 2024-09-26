@@ -1,11 +1,12 @@
 package br.edu.iesb.poo2024.atividadeAvaliativa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Sala extends ObjetoBase{
     private int qtdLugares;
     private boolean disponivel;
-    private static List<Sala> salas;
+    private static List<Sala> salas = new ArrayList<>();
 
     public Sala(int qtdLugares, boolean disponivel) {
         this.qtdLugares = qtdLugares;

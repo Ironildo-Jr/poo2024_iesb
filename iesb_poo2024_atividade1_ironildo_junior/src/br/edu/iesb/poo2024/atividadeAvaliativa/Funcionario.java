@@ -1,12 +1,13 @@
 package br.edu.iesb.poo2024.atividadeAvaliativa;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Funcionario extends ObjetoBase{
     private String nome;
     private String cargo;
-    private static List<Funcionario> funcionarios;
+    private static List<Funcionario> funcionarios = new ArrayList<>();
 
     public Funcionario(String nome, String cargo){
         this.nome = nome;
@@ -24,12 +25,12 @@ public class Funcionario extends ObjetoBase{
         Sessao sessao = Sessao.getSessao(idSessao);
         if (sessao == null){
             throw new RuntimeException("Sessao nao foi achada na base");
-        }else if (sessao.getQtdMaximoIngressos() >= sessao.getQtdIngressosVendidos()){
+        }else if (sessao.getQtdIngressosVendidos() >= sessao.getQtdMaximoIngressos()){
             throw new RuntimeException("Sessao cheia");
         }
 
-        if(LocalDateTime.now().getYear() - cliente.getDataNascimento().getYear() == sessao.getFilme().getClassificacaoEtaria()){
-            throw new RuntimeException("CLiente nao pode ver o filme por causa da idade");
+        if((LocalDateTime.now().getYear() - cliente.getDataNascimento().getYear()) <= sessao.getFilme().getClassificacaoEtaria()){
+            throw new RuntimeException("Cliente nao pode ver o filme por causa da idade");
         }
 
         sessao.addIngressoVendido();

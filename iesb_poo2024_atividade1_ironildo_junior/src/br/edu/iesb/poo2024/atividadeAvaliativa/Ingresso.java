@@ -1,6 +1,7 @@
 package br.edu.iesb.poo2024.atividadeAvaliativa;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Ingresso extends ObjetoBase{
@@ -9,7 +10,7 @@ public class Ingresso extends ObjetoBase{
     private Sessao sessao;
     private LocalDateTime horaCompra;
     private double valorPago;
-    private static List<Ingresso> ingressos;
+    private static List<Ingresso> ingressos= new ArrayList<>();
 
     public Ingresso(String tipo, Cliente cliente, double valorPago, Sessao sessao){
         this.tipo = tipo;
@@ -23,7 +24,8 @@ public class Ingresso extends ObjetoBase{
     }
 
     public void imprimirIngresso(){
-        System.out.println("Id: " + super.getId() + "\nCliente: " + cliente.getNome() + "\nTipo: " + tipo + "\nValor Pago: R$" + valorPago + "\nHora da Compra: " + horaCompra.getHour() + ":" + horaCompra.getMinute() + "\nSessao: \n");
+        System.out.println("\n\n--------------Ingresso--------------\n");
+        System.out.println("Id: " + super.getId() + "\nCliente: " + cliente.getNome() + "\nTipo: " + tipo + "\nValor Pago: R$" + valorPago + "\nHora da Compra: " + horaCompra.getHour() + ":" + horaCompra.getMinute());
         sessao.verSessao();
     }
 }

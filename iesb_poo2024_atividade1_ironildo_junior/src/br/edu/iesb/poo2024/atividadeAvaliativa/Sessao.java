@@ -1,6 +1,7 @@
 package br.edu.iesb.poo2024.atividadeAvaliativa;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Sessao extends ObjetoBase{
@@ -9,7 +10,7 @@ public class Sessao extends ObjetoBase{
     private LocalDateTime horario;
     private int qtdMaximoIngressos;
     private int qtdIngressosVendidos;
-    private static List<Sessao> sessoes;
+    private static List<Sessao> sessoes = new ArrayList<>();
 
     public void cadastrarSessao(int idFilme, int idSala, LocalDateTime horario) {
         filme = Filme.getFilme(idFilme);
@@ -34,6 +35,7 @@ public class Sessao extends ObjetoBase{
     }
 
     public void verSessao(){
+        System.out.println("\n\n--------------Sessao--------------\n");
         System.out.println("Id: "+ super.getId() + "\nFilme: " + filme.getNome() + "\nSala: " + sala.getId() + "\nHorario: " + horario.getHour() + ":"+ horario.getMinute() + "\nQuantidade Maxima de Ingressos: " + qtdMaximoIngressos + "\nIngressos vendido:" + qtdIngressosVendidos); 
     }
 
