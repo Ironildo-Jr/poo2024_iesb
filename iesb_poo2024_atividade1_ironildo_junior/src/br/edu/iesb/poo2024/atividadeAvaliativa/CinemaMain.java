@@ -1,9 +1,14 @@
 package br.edu.iesb.poo2024.atividadeAvaliativa;
 
 import java.time.LocalDateTime;
-
+/*
+ * Author Ironildo
+ */
 public class CinemaMain {
     public static void main(String[] args) {
+
+        System.out.println("Ironildo Junior - 2312082021");
+        
         new Filme("Titanic", "90min", 15, "Drama");
         new Filme("Avatar", "180min",10,"Aventura");
 
