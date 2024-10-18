@@ -12,12 +12,12 @@ public class Sessao extends ObjetoBase{
     private int qtdIngressosVendidos;
     private static List<Sessao> sessoes = new ArrayList<>();
 
-    public void cadastrarSessao(int idFilme, int idSala, LocalDateTime horario) {
+    public void cadastrarSessao(int idFilme, int idSala, LocalDateTime horario) throws CinemaExcecoes {
         filme = Filme.getFilme(idFilme);
 
         Sala sala = Sala.getSala(idSala);
         if(sala == null || !sala.isDisponivel()){
-            throw new RuntimeException("Sala indisponivel");
+            throw new CinemaExcecoes(EnumExcecoes.SALA);
         }
         sala.setDisponivel(false);
         this.sala = sala;
@@ -39,7 +39,10 @@ public class Sessao extends ObjetoBase{
         System.out.println("Id: "+ super.getId() + "\nFilme: " + filme.getNome() + "\nSala: " + sala.getId() + "\nHorario: " + horario.getHour() + ":"+ horario.getMinute() + "\nQuantidade Maxima de Ingressos: " + qtdMaximoIngressos + "\nIngressos vendido:" + qtdIngressosVendidos); 
     }
 
-    public static Sessao getSessao(int id){
+    public static Sessao getSessao(int id) throws CinemaExcecoes{
+        if(id <= 0){
+            throw new CinemaExcecoes(EnumExcecoes.ID_INVALIDO);
+        }
         for (Sessao sessao: sessoes){
             if(sessao.getId() == id){
                 return sessao;

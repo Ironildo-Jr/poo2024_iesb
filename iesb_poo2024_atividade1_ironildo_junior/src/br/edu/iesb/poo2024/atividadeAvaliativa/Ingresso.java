@@ -12,7 +12,11 @@ public class Ingresso extends ObjetoBase{
     private double valorPago;
     private static List<Ingresso> ingressos= new ArrayList<>();
 
-    public Ingresso(String tipo, Cliente cliente, double valorPago, Sessao sessao){
+    public Ingresso(String tipo, Cliente cliente, double valorPago, Sessao sessao) throws CinemaExcecoes{
+        if (cliente == null || sessao == null){
+            throw new CinemaExcecoes(EnumExcecoes.INGRESSO_CLIENTE);
+        }
+
         this.tipo = tipo;
         this.valorPago = valorPago;
         horaCompra = LocalDateTime.now();
