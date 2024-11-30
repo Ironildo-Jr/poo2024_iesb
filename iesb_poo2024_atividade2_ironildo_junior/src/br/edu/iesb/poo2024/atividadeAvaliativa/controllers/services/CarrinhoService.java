@@ -1,5 +1,6 @@
 package br.edu.iesb.poo2024.atividadeAvaliativa.controllers.services;
 
+import br.edu.iesb.poo2024.atividadeAvaliativa.controllers.exceptions.ClienteException;
 import br.edu.iesb.poo2024.atividadeAvaliativa.model.dao.CarrinhoDAO;
 import br.edu.iesb.poo2024.atividadeAvaliativa.model.dao.ProdutoDAO;
 import br.edu.iesb.poo2024.atividadeAvaliativa.model.entities.CarrinhoEntity;
@@ -15,17 +16,32 @@ public class CarrinhoService {
     }
 
     public void addAoCarrinho(int idProduto, String cpf) {
-        ProdutoEntity produto = produtoDAO.consultarProduto(idProduto);
+        try {
+            ProdutoEntity produto = produtoDAO.consultarProduto(idProduto);
 
-        carrinhoDAO.adicionarProduto(produto, cpf);
+            carrinhoDAO.adicionarProduto(produto, cpf);
+        } catch (Exception e) {
+            System.err.println("Não foi possivel add o produto ao carrinho");
+            e.printStackTrace();
+        }
 
     }
 
     public void removeDoCarrinho(int idProduto, String cpf) {
-        carrinhoDAO.removerProduto(idProduto, cpf);
+        try {
+            carrinhoDAO.removerProduto(idProduto, cpf);
+        } catch (Exception e) {
+            System.err.println("Não foi possivel remover o produto ao carrinho");
+            e.printStackTrace();
+        }
     }
 
     public CarrinhoEntity buscarCarrinho(String cpf) {
-        return carrinhoDAO.getCarrinhoCliente(cpf);
+        try {
+            return carrinhoDAO.getCarrinhoCliente(cpf);
+        } catch (ClienteException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

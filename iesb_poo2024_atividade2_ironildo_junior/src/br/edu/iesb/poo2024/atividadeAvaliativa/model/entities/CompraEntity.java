@@ -11,25 +11,38 @@ public class CompraEntity {
     public List<ProdutoEntity> getProdutos() {
         return produtos;
     }
+
     public void setProdutos(List<ProdutoEntity> produtos) {
         this.produtos = produtos;
     }
+
     public String getCpfComprador() {
         return cpfComprador;
     }
+
     public void setCpfComprador(String cpfComprador) {
         this.cpfComprador = cpfComprador;
     }
+
     public String getFormaPagamento() {
         return formaPagamento;
     }
+
     public void setFormaPagamento(String formaPagamento) {
         this.formaPagamento = formaPagamento;
     }
+
     public double getTotal() {
         return total;
     }
+
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    @Override
+    public String toString() {
+        return "CompraEntity [produtos=" + produtos + ", cpfComprador=" + cpfComprador + ", formaPagamento="
+                + formaPagamento + ", total=" + total + "]";
     }
 }

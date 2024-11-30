@@ -15,6 +15,14 @@ public class ClienteEntity {
         carrinho = new CarrinhoEntity();
     }
 
+    public ClienteEntity(String nome, String cpf) {
+        this.nome = nome;
+        this.cpf = cpf;
+
+        compras = new ArrayList<>();
+        carrinho = new CarrinhoEntity();
+    }
+
     public int getId() {
         return id;
     }

@@ -1,23 +1,20 @@
 package br.edu.iesb.poo2024.atividadeAvaliativa.model.dao;
 
-import java.util.stream.Stream;
-
+import br.edu.iesb.poo2024.atividadeAvaliativa.controllers.exceptions.ProdutoException;
 import br.edu.iesb.poo2024.atividadeAvaliativa.model.BancoDados;
 import br.edu.iesb.poo2024.atividadeAvaliativa.model.entities.ProdutoEntity;
 
 public class ProdutoDAO {
     private BancoDados bd;
-    private Stream<ProdutoEntity> produtoBd;
 
     public ProdutoDAO() {
         bd = new BancoDados();
-        produtoBd = bd.getProdutos().stream();
     }
 
-    public int cadastrarProduto(ProdutoEntity produto) {
+    public int cadastrarProduto(ProdutoEntity produto) throws ProdutoException {
 
-        if (existe(produto.getId())){
-            // TODO lanca excecao
+        if (existe(produto.getId())) {
+            throw new ProdutoException("Produto ja existe na base de dados");
         }
 
         produto.setId(gerarId());
@@ -27,7 +24,7 @@ public class ProdutoDAO {
         return produto.getId();
     }
 
-    public int alterarProduto(ProdutoEntity produto){
+    public int alterarProduto(ProdutoEntity produto) throws ProdutoException {
 
         ProdutoEntity produtoAntigo = consultarProduto(produto.getId());
 
@@ -36,22 +33,23 @@ public class ProdutoDAO {
         return produtoAntigo.getId();
     }
 
-    public void excluirProduto(int id){
+    public void excluirProduto(int id) throws ProdutoException {
         boolean removeu = bd.getClientes().removeIf(x -> x.getId() == id);
         if (!removeu) {
-            // TODO lanca excecao
+            throw new ProdutoException("Produto nao encontrado");
         }
     }
 
-    public ProdutoEntity consultarProduto(int id){
-        return produtoBd.filter(x -> x.getId() == id).findFirst().orElseThrow(null);
+    public ProdutoEntity consultarProduto(int id) throws ProdutoException {
+        return bd.getProdutos().stream().filter(x -> x.getId() == id).findFirst()
+                .orElseThrow(() -> new ProdutoException("Produto nao encontrado"));
     }
 
     private int gerarId() {
-        return produtoBd.map(ProdutoEntity::getId).max(Integer::compare).get();
+        return bd.getProdutos().stream().map(ProdutoEntity::getId).max(Integer::compare).orElse(1);
     }
 
     private boolean existe(int id) {
-        return produtoBd.anyMatch(x -> x.getId() == id);
+        return bd.getProdutos().stream().filter(x -> x.getId() == id).findFirst().isPresent();
     }
 }

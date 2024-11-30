@@ -21,5 +21,8 @@ public class CarrinhoEntity {
         this.total = total;
     }
 
-    
+    @Override
+    public String toString() {
+        return "CarrinhoEntity [produtos=" + produtos + ", total=" + total + "]";
+    }
 }

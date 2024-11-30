@@ -1,24 +1,21 @@
 package br.edu.iesb.poo2024.atividadeAvaliativa.model.dao;
 
 import java.util.List;
-import java.util.stream.Stream;
 
+import br.edu.iesb.poo2024.atividadeAvaliativa.controllers.exceptions.ClienteException;
 import br.edu.iesb.poo2024.atividadeAvaliativa.model.BancoDados;
 import br.edu.iesb.poo2024.atividadeAvaliativa.model.entities.ClienteEntity;
 import br.edu.iesb.poo2024.atividadeAvaliativa.model.entities.CompraEntity;
 
 public class ClienteDAO {
     private BancoDados bd;
-    private Stream<ClienteEntity> clientesBd;
-
     public ClienteDAO() {
         bd = new BancoDados();
-        clientesBd = bd.getClientes().stream();
     }
 
-    public int cadastrarCliente(ClienteEntity cliente) {
+    public int cadastrarCliente(ClienteEntity cliente) throws ClienteException {
         if (existe(cliente.getCpf())) {
-            // TODO lanca excecao
+            throw new ClienteException("Cliente ja existe na base de dados");
         }
 
         cliente.setId(gerarId());
@@ -27,7 +24,7 @@ public class ClienteDAO {
         return cliente.getId();
     }
 
-    public int alterarCliente(ClienteEntity cliente) {
+    public int alterarCliente(ClienteEntity cliente) throws ClienteException {
 
         ClienteEntity clienteAntigo = consultarCliente(cliente.getCpf());
 
@@ -36,20 +33,21 @@ public class ClienteDAO {
         return clienteAntigo.getId();
     }
 
-    public void excluirCliente(String cpf) {
+    public void excluirCliente(String cpf) throws ClienteException {
 
         boolean removeu = bd.getClientes().removeIf(x -> x.getCpf().equals(cpf));
 
         if (removeu) {
-            // TODO lanca excecao
+            throw new ClienteException("Cliente nao existe na base de dados");
         }
     }
 
-    public ClienteEntity consultarCliente(String cpf) {
-        return clientesBd.filter(x -> x.getCpf().equals(cpf)).findFirst().orElseThrow(null);
+    public ClienteEntity consultarCliente(String cpf) throws ClienteException {
+        return bd.getClientes().stream().filter(x -> x.getCpf().equals(cpf)).findFirst()
+                .orElseThrow(() -> new ClienteException("Cliente nao encontrado"));
     }
 
-    public int adicionarCompra(CompraEntity compra) {
+    public int adicionarCompra(CompraEntity compra) throws ClienteException {
         ClienteEntity cliente = consultarCliente(compra.getCpfComprador());
 
         compra.getProdutos().stream().forEach(x -> x.setPreco(x.getQuantidade() - 1));
@@ -60,11 +58,15 @@ public class ClienteDAO {
         return cliente.getId();
     }
 
+    public List<CompraEntity> buscarCompras(String cpf) throws ClienteException{
+        return consultarCliente(cpf).getCompras();
+    }
+
     private int gerarId() {
-        return clientesBd.map(ClienteEntity::getId).max(Integer::compare).get();
+        return bd.getClientes().stream().map(ClienteEntity::getId).max(Integer::compare).orElse(1);
     }
 
     private boolean existe(String cpf) {
-        return clientesBd.anyMatch(x -> x.getCpf().equals(cpf));
+        return bd.getClientes().stream().anyMatch(x -> x.getCpf().equals(cpf));
     }
 }
