@@ -6,12 +6,13 @@ import br.edu.iesb.poo2024.atividadeAvaliativa.controllers.services.ClienteServi
 import br.edu.iesb.poo2024.atividadeAvaliativa.controllers.services.ProdutoService;
 
 public class Main {
-    public static void main(String args[]) throws CompraException{
+    public static void main(String args[]) throws CompraException {
 
         System.out.println("Ironildo Junior - 2312082021");
-        
+
         // HU - Carrinho de compras
-        // Descricao HU - Permitir listar o(s) produto(s) desejados antes de realizar o pagamento e ver o total do próprio carrinho.
+        // Descricao HU - Permitir listar o(s) produto(s) desejados antes de realizar o
+        // pagamento e ver o total do próprio carrinho.
 
         ClienteService clienteService = new ClienteService();
         ProdutoService produtoService = new ProdutoService();
@@ -22,9 +23,10 @@ public class Main {
         clienteService.cadastrarCliente("Iron2", "1234");
 
         produtoService.cadastrarProduto("Celular", "iphone 17 pra mim", 10000, 2);
-        produtoService.cadastrarProduto("Notebook", "asus book", 5000, 1);
+        produtoService.cadastrarProduto("Notebook", "asus book", 5000, 3);
 
         carrinhoService.addAoCarrinho(1, "1234");
+        carrinhoService.addAoCarrinho(2, "1234");
         carrinhoService.addAoCarrinho(2, "4321");
         carrinhoService.addAoCarrinho(1, "0");
 
@@ -44,9 +46,9 @@ public class Main {
         clienteService.comprarCarrinho("1234", "credito");
 
         System.out.println("-------------- Compras Iron --------------");
-        System.out.println(clienteService.historicoCompras("1234"));
+        clienteService.historicoCompras("1234").stream().forEach(x -> System.out.println(x));
 
         System.out.println("-------------- Compras Bruno --------------");
-        System.out.println(clienteService.historicoCompras("4321"));
+        clienteService.historicoCompras("4321").stream().forEach(x -> System.out.println(x));
     }
 }

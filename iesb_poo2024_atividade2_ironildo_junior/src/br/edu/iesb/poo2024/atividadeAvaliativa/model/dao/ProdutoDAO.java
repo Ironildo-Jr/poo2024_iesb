@@ -46,7 +46,7 @@ public class ProdutoDAO {
     }
 
     private int gerarId() {
-        return bd.getProdutos().stream().map(ProdutoEntity::getId).max(Integer::compare).orElse(1);
+        return bd.getProdutos().stream().map(ProdutoEntity::getId).max(Integer::compare).orElse(0) + 1;
     }
 
     private boolean existe(int id) {

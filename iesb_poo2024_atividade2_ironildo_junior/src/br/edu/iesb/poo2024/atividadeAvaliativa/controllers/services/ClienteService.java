@@ -63,7 +63,7 @@ public class ClienteService {
         return null;
     }
 
-    public int comprarCarrinho(String cpf, String formaPagamento) throws CompraException{
+    public void comprarCarrinho(String cpf, String formaPagamento) throws CompraException{
         CompraEntity compra = new CompraEntity();
         CarrinhoEntity carrinho = null;
         try {
@@ -82,7 +82,11 @@ public class ClienteService {
         compra.setProdutos(carrinho.getProdutos());
         compra.setTotal(carrinho.getTotal());
 
-        return 0;
+        try {
+            clienteDAO.adicionarCompra(compra);
+        } catch (ClienteException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<CompraEntity> historicoCompras(String cpf){

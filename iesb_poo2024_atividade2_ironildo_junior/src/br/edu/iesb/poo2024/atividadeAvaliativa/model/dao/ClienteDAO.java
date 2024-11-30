@@ -52,8 +52,7 @@ public class ClienteDAO {
 
         compra.getProdutos().stream().forEach(x -> x.setPreco(x.getQuantidade() - 1));
 
-        List<CompraEntity> compras = cliente.getCompras();
-        compras.add(compra);
+        cliente.getCompras().add(compra);
 
         return cliente.getId();
     }
@@ -63,7 +62,7 @@ public class ClienteDAO {
     }
 
     private int gerarId() {
-        return bd.getClientes().stream().map(ClienteEntity::getId).max(Integer::compare).orElse(1);
+        return bd.getClientes().stream().map(ClienteEntity::getId).max(Integer::compare).orElse(0) + 1;
     }
 
     private boolean existe(String cpf) {
