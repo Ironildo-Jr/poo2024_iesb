@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora IESB</title>
+</head>
+<script>
+    function calcular() {
+        var formulario = document.getElementById("form");
+        var p1 = formulario.elements[0].value;
+        var p2 = formulario.elements[1].value;
+        if (p2 == 0) {
+            p2 = (5 - (p1 * 0.4)) / 0.6;
+            mostrarTela("Sua nota para p2 deve ser: " + arredondarPraCima(p2));
+        } else if (p1 == 0) {
+            p1 = (5 - (p2 * 0.6)) / 0.4;
+            mostrarTela("Sua nota para p1 deve ser: " + arredondarPraCima(p1));
+        } else {
+            var nota = arredondarPraCima((p1 * 0.4) + (p2 * 0.6));
+            var msg = "Sua mencao eh: ";
+            if (nota > 0 && nota < 3) {
+                mostrarTela(msg + "II");
+            } else if (nota >= 3 && nota < 5) {
+                mostrarTela(msg + "MI");
+            } else if (nota >= 5 && nota < 7) {
+                mostrarTela(msg + "MM");
+            } else if (nota >= 7 && nota < 9) {
+                mostrarTela(msg + "MS");
+            } else if (nota >= 9 && nota <= 10) {
+                mostrarTela(msg + "SS");
+            } else {
+                mostrarTela(msg + "SR");
+            }
+        }
+    }
+
+    function arredondarPraCima(nota) {
+        return Math.ceil(nota * 100) / 100;
+    }
+
+    function mostrarTela(msg) {
+        document.getElementById('nota').innerHTML = msg;
+    }
+</script>
+
+<body>
+    <div style="width: 100%; height: 100%;">
+        <form id="form">
+            Nota p1: <input type="text" name="p1" value="0.0"><br>
+            Nota p2: <input type="text" name="p2" value="0.0"><br><br>
+            <input type="button" onclick="calcular()" value="Calcular">
+        </form>
+
+        <p style="background-color: white; font-size: larger;" id="nota"></p>
+    </div>
+</body>
+
+</html>
